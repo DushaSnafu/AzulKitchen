@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "L'Architecte Nutrition Digital | Coaching Premium",
+  title: "L'Architecte Nutrition | Cabinet & Visio",
   description: "Coaching en nutrition d'élite. Retrouvez de l'énergie sans frustration grâce à une approche personnalisée et scientifique.",
 };
 

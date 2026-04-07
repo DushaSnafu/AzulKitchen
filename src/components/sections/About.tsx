@@ -17,11 +17,12 @@ export default function About() {
                         transition={{ duration: 0.8 }}
                         className="relative"
                     >
-                        {/* Minimalist image placeholder for the coach */}
                         <div className="aspect-[4/5] rounded-t-full bg-[var(--color-brand-blue)]/5 border-2 border-[var(--color-brand-gold)] overflow-hidden relative shadow-2xl">
-                            <div className="absolute inset-0 flex items-center justify-center text-[var(--color-brand-blue)]/40 text-2xl font-[family-name:var(--font-playfair)] italic">
-                                Portrait de l'expert
-                            </div>
+                            <img
+                                src="/about_portrait_1771764831216.png"
+                                alt="L'Architecte Nutrition"
+                                className="w-full h-full object-cover"
+                            />
                         </div>
                         {/* Decorative element */}
                         <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-[var(--color-brand-yellow)] mix-blend-multiply opacity-60 blur-2xl" />

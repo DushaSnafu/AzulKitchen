@@ -48,9 +48,9 @@ export default function Testimonials() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.5 }}
-                            className="bg-white p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative"
+                            className="bg-white pt-24 px-8 pb-8 rounded-t-[100px] rounded-b-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden"
                         >
-                            <Quote className="absolute top-6 right-8 text-[var(--color-brand-blue)]/10 w-12 h-12" />
+                            <Quote className="absolute top-8 left-1/2 -translate-x-1/2 text-[var(--color-brand-blue)]/10 w-10 h-10" />
                             <div className="flex gap-1 mb-6">
                                 {[...Array(testimonial.rating)].map((_, i) => (
                                     <Star key={i} className="w-5 h-5 fill-[var(--color-brand-gold)] text-[var(--color-brand-gold)]" />

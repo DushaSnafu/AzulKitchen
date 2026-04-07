@@ -55,7 +55,7 @@ export default function FooterCTA() {
                 <div className="flex flex-col md:flex-row justify-between items-center opacity-60 text-sm">
                     <div className="mb-4 md:mb-0">
                         <span className="font-[family-name:var(--font-seasons)] font-bold text-xl tracking-tighter mr-2">
-                            Anti-Gravity
+                            AzulKitchen
                         </span>
                         &copy; 2026. Tous droits réservés.
                     </div>

@@ -74,7 +74,7 @@ export default function HeroSequence() {
         const scale = Math.max(
             canvas.width / img.width,
             canvas.height / img.height
-        );
+        ) * 1.2; // Zoom de 20% pour effacer le filigrane "Veo" tout à droite
         const x = canvas.width / 2 - (img.width / 2) * scale;
         const y = canvas.height / 2 - (img.height / 2) * scale;
 
@@ -111,15 +111,15 @@ export default function HeroSequence() {
                 {/* Hero Content - Absolute Centered */}
                 <div className="absolute z-20 flex flex-col items-center justify-center text-center px-4 md:px-8 w-full">
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-brand-cream)] font-[family-name:var(--font-playfair)] tracking-wide mb-6 uppercase text-balance drop-shadow-xl">
-                        L'Architecte Nutrition Digital
+                        L'Architecte Nutrition
                     </h1>
                     <p className="text-lg md:text-2xl text-[var(--color-brand-cream)] font-light max-w-2xl mb-8 drop-shadow-md">
                         Rééquilibrage alimentaire & nutrition sportive pour femmes actives, seniors et athlètes.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 items-center">
-                        <button className="px-8 py-4 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] font-bold rounded-full text-lg hover:bg-[var(--color-brand-yellow)] hover:scale-105 transition-all duration-300 shadow-xl">
-                            Retrouvez de l'énergie sans frustration
-                        </button>
+                        <a href="/contact" className="px-8 py-4 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] font-bold rounded-full text-lg hover:bg-[var(--color-brand-yellow)] hover:scale-105 transition-all duration-300 shadow-xl">
+                            Retrouver l'énergie sans frustration
+                        </a>
                     </div>
                 </div>
             </div>

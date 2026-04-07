@@ -83,7 +83,7 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.15 }}
-                            className={`relative bg-[var(--color-brand-cream)] text-[var(--color-brand-blue)] rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:-translate-y-2 ${plan.recommended ? "scale-105 border-4 border-[var(--color-brand-gold)]" : "scale-100 border border-[var(--color-brand-blue)]/10"
+                            className={`relative bg-[var(--color-brand-cream)] text-[var(--color-brand-blue)] rounded-t-[100px] rounded-b-3xl pt-24 px-8 pb-8 shadow-2xl transition-all duration-300 hover:-translate-y-2 ${plan.recommended ? "scale-105 border-4 border-[var(--color-brand-gold)]" : "scale-100 border border-[var(--color-brand-blue)]/10"
                                 }`}
                         >
                             {plan.recommended && (
