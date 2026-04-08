@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import Link from "next/link";
 
 const FRAME_COUNT = 80;
 
@@ -117,9 +118,9 @@ export default function HeroSequence() {
                         Rééquilibrage alimentaire & nutrition sportive pour femmes actives, seniors et athlètes.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 items-center">
-                        <a href="/contact" className="px-8 py-4 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] font-bold rounded-full text-lg hover:bg-[var(--color-brand-yellow)] hover:scale-105 transition-all duration-300 shadow-xl">
+                        <Link href="/contact" className="px-8 py-4 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] font-bold rounded-full text-lg hover:bg-[var(--color-brand-yellow)] hover:scale-105 transition-all duration-300 shadow-xl">
                             Retrouver l'énergie sans frustration
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

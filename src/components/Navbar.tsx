@@ -64,9 +64,9 @@ export default function Navbar() {
                         <a href="/#services" className={`font-medium transition-colors duration-500 ${textBase} ${textHover}`}>Services</a>
                         <a href="/#testimonials" className={`font-medium transition-colors duration-500 ${textBase} ${textHover}`}>Avis</a>
                         <Link href="/blog" className={`font-medium transition-colors duration-500 ${textBase} ${textHover}`}>Articles</Link>
-                        <a href="/contact" className={`px-6 py-2 rounded-full font-semibold transition-all duration-500 shadow-lg inline-block text-center ${btnBg}`}>
+                        <Link href="/contact" className={`px-6 py-2 rounded-full font-semibold transition-all duration-500 shadow-lg inline-block text-center ${btnBg}`}>
                             Réserver mon diagnostic
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="-mr-2 flex items-center md:hidden">
@@ -92,9 +92,9 @@ export default function Navbar() {
                         <a href="/#services" className={`block px-3 py-2 text-lg font-medium transition-colors duration-500 ${textBase}`}>Services</a>
                         <a href="/#testimonials" className={`block px-3 py-2 text-lg font-medium transition-colors duration-500 ${textBase}`}>Avis</a>
                         <Link href="/blog" className={`block px-3 py-2 text-lg font-medium transition-colors duration-500 ${textBase}`}>Articles</Link>
-                        <a href="/contact" className={`mt-4 w-full block px-6 py-3 rounded-full font-semibold shadow-md transition-colors duration-500 inline-block text-center ${btnBg}`}>
+                        <Link href="/contact" className={`mt-4 w-full block px-6 py-3 rounded-full font-semibold shadow-md transition-colors duration-500 inline-block text-center ${btnBg}`}>
                             Réserver mon diagnostic
-                        </a>
+                        </Link>
                     </div>
                 </motion.div>
             )}

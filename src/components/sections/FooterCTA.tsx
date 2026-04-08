@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, FileText } from "lucide-react";
+import Link from "next/link";
 
 export default function FooterCTA() {
     return (
@@ -18,9 +19,9 @@ export default function FooterCTA() {
                             Prêt(e) à redéfinir votre équilibre ?
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--color-brand-yellow)] transition-all shadow-[0_0_40px_rgba(251,208,95,0.3)]">
+                            <Link href="/contact" className="bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--color-brand-yellow)] transition-all shadow-[0_0_40px_rgba(251,208,95,0.3)] inline-flex justify-center items-center">
                                 Réserver mon diagnostic offert
-                            </button>
+                            </Link>
                         </div>
                     </motion.div>
 

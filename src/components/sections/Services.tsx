@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import Link from "next/link";
 
 const plans = [
     {
@@ -107,12 +108,14 @@ export default function Services() {
                                 ))}
                             </ul>
 
-                            <button className={`w-full py-4 rounded-xl font-bold transition-all shadow-md ${plan.recommended
-                                    ? "bg-[var(--color-brand-blue)] text-[var(--color-brand-cream)] hover:bg-[var(--color-brand-blue)]/90"
-                                    : "bg-[var(--color-brand-blue)]/5 text-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/10"
-                                }`}>
-                                Sélectionner
-                            </button>
+                            <Link href="/contact" className="block text-center mt-8">
+                                <button className={`w-full py-4 rounded-xl font-bold transition-all shadow-md ${plan.recommended
+                                        ? "bg-[var(--color-brand-blue)] text-[var(--color-brand-cream)] hover:bg-[var(--color-brand-blue)]/90"
+                                        : "bg-[var(--color-brand-blue)]/5 text-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/10"
+                                    }`}>
+                                    Sélectionner
+                                </button>
+                            </Link>
                         </motion.div>
                     ))}
                 </div>
