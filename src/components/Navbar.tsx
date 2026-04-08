@@ -52,12 +52,12 @@ export default function Navbar() {
         <nav className={`fixed w-full z-50 top-0 transition-colors duration-500 ${navBg} shadow-xl border-b ${borderColor} rounded-b-[2.5rem]`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-24">
-                    <div className="flex-shrink-0 flex items-center cursor-pointer gap-3">
+                    <Link href="/" className="flex-shrink-0 flex items-center cursor-pointer gap-3">
                         <img src="/logo.png" alt="Logo AzulKitchen" className={`h-10 w-auto object-contain transition-all duration-500 ${logoFilter}`} />
                         <span className={`font-[family-name:var(--font-seasons)] font-bold text-2xl tracking-tighter transition-colors duration-500 ${textBase}`}>
                             AzulKitchen
                         </span>
-                    </div>
+                    </Link>
 
                     <div className="hidden md:ml-10 md:flex md:space-x-8 items-center">
                         <a href="/#about" className={`font-medium transition-colors duration-500 ${textBase} ${textHover}`}>À Propos</a>

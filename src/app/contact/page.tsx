@@ -4,13 +4,19 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import FooterCTA from "@/components/sections/FooterCTA";
-import { ArrowLeft, Calendar, Clock, CreditCard, Lock, CheckCircle, Smartphone } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, CreditCard, Lock, CheckCircle, Activity } from "lucide-react";
 import Link from "next/link";
 
 export default function ContactBooking() {
+    const [selectedService, setSelectedService] = useState<{name: string, price: number, duration: string}>({ name: "Consultation Express", price: 90, duration: "45 min" });
     const [selectedDate, setSelectedDate] = useState<number | null>(null);
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
     const [paymentState, setPaymentState] = useState<"idle" | "processing" | "success">("idle");
+
+    const services = [
+        { name: "Consultation Express", duration: "45 min", price: 90 },
+        { name: "Programme Complet", duration: "1h30 + Suivi 3 mois", price: 300 }
+    ];
 
     // Generate dates for the calendar (next 5 days)
     const dates = Array.from({ length: 5 }, (_, i) => {
@@ -45,7 +51,7 @@ export default function ContactBooking() {
                         Réservation de Diagnostic
                     </h1>
                     <p className="text-lg opacity-80 max-w-2xl mx-auto">
-                        Sélectionnez un créneau pour votre première consultation en visioconférence (45 min).
+                        Sélectionnez un créneau pour votre première consultation en visioconférence.
                     </p>
                 </div>
 
@@ -76,8 +82,29 @@ export default function ContactBooking() {
                             animate={{ opacity: 1, x: 0 }}
                             className="bg-white p-8 rounded-[2.5rem] shadow-xl border border-[var(--color-brand-blue)]/5"
                         >
-                            <h3 className="text-2xl font-bold font-[family-name:var(--font-seasons)] mb-8 flex items-center gap-3">
-                                <Calendar className="w-6 h-6 text-[var(--color-brand-gold)]" /> 1. Choisissez une date
+                            <h3 className="text-2xl font-bold font-[family-name:var(--font-seasons)] mb-6 flex items-center gap-3">
+                                <Activity className="w-6 h-6 text-[var(--color-brand-gold)]" /> 1. Choisissez votre service
+                            </h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                                {services.map((service, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setSelectedService(service)}
+                                        className={`p-4 rounded-xl text-left transition-all duration-300 border-2 ${
+                                            selectedService.name === service.name
+                                                ? "border-[var(--color-brand-blue)] bg-[var(--color-brand-blue)] text-[var(--color-brand-cream)] shadow-lg"
+                                                : "border-[var(--color-brand-blue)]/10 hover:border-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/5"
+                                        }`}
+                                    >
+                                        <div className="font-bold">{service.name}</div>
+                                        <div className="text-sm opacity-80">{service.duration}</div>
+                                        <div className="mt-2 font-bold text-lg">{service.price} €</div>
+                                    </button>
+                                ))}
+                            </div>
+
+                            <h3 className="text-2xl font-bold font-[family-name:var(--font-seasons)] mb-6 flex items-center gap-3">
+                                <Calendar className="w-6 h-6 text-[var(--color-brand-gold)]" /> 2. Choisissez une date
                             </h3>
                             
                             <div className="grid grid-cols-5 gap-2 mb-10">
@@ -103,7 +130,7 @@ export default function ContactBooking() {
 
                             <div className={`transition-all duration-500 ${selectedDate !== null ? "opacity-100" : "opacity-30 pointer-events-none"}`}>
                                 <h3 className="text-2xl font-bold font-[family-name:var(--font-seasons)] mb-6 flex items-center gap-3">
-                                    <Clock className="w-6 h-6 text-[var(--color-brand-gold)]" /> 2. L'heure de la visio
+                                    <Clock className="w-6 h-6 text-[var(--color-brand-gold)]" /> 3. L'heure de la visio
                                 </h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     {timeSlots.map((time) => (
@@ -131,19 +158,16 @@ export default function ContactBooking() {
                             className={`transition-all duration-500 ${selectedTime !== null ? "opacity-100" : "opacity-30 pointer-events-none"}`}
                         >
                             <div className="bg-[#fcfdfd] p-8 rounded-[2.5rem] shadow-2xl border border-[var(--color-brand-blue)]/10 h-full relative overflow-hidden">
-                                <div className="absolute top-0 right-0 bg-[#635BFF]/10 text-[#635BFF] px-4 py-1 rounded-bl-xl text-xs font-bold tracking-widest uppercase">
-                                    Demo Mode
-                                </div>
                                 <h3 className="text-2xl font-bold font-[family-name:var(--font-seasons)] mb-8 flex items-center gap-3">
-                                    <CreditCard className="w-6 h-6 text-[#635BFF]" /> 3. Paiement Sécurisé
+                                    <CreditCard className="w-6 h-6 text-[#635BFF]" /> Paiement Sécurisé
                                 </h3>
 
                                 <div className="mb-8 p-6 bg-white border border-gray-100 rounded-2xl shadow-sm flex justify-between items-center">
                                     <div>
-                                        <h4 className="font-bold">Bilan initial (Visio)</h4>
-                                        <p className="text-sm opacity-60">Durée : 45 minutes</p>
+                                        <h4 className="font-bold">{selectedService.name}</h4>
+                                        <p className="text-sm opacity-60">Durée : {selectedService.duration}</p>
                                     </div>
-                                    <div className="text-2xl font-bold">150 €</div>
+                                    <div className="text-2xl font-bold">{selectedService.price} €</div>
                                 </div>
 
                                 <form onSubmit={handlePayment} className="space-y-6 relative">
@@ -212,7 +236,7 @@ export default function ContactBooking() {
                                         {paymentState === "processing" ? (
                                             <span className="flex items-center gap-2">Traitement en cours...</span>
                                         ) : (
-                                            <>Payer 150,00 €</>
+                                            <>Payer {selectedService.price},00 €</>
                                         )}
                                     </button>
                                 </form>
