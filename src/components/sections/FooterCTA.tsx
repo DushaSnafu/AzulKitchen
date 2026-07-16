@@ -1,70 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function FooterCTA() {
     return (
-        <footer className="bg-[var(--color-brand-blue)] text-[var(--color-brand-cream)] pt-24 pb-12 rounded-t-[3rem] -mt-8 relative z-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <footer className="bg-[var(--color-brand-blue-dark)] text-white">
+            <div className="mx-auto max-w-7xl px-5 pb-10 pt-20 sm:px-8 sm:pt-28 lg:px-10">
+                <div className="grid gap-12 border-b border-white/14 pb-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+                    <div>
+                        <p className="mb-5 font-bold text-[var(--color-brand-gold)]">Votre prochain pas peut être simple.</p>
+                        <h2 className="max-w-[12ch] text-[clamp(3rem,6vw,5.8rem)] font-bold leading-[0.94]">On construit votre équilibre ?</h2>
+                        <Link href="/contact" className="mt-9 inline-flex min-h-12 items-center gap-2 rounded-full bg-[var(--color-brand-gold)] px-7 py-3.5 font-bold text-[var(--color-brand-blue-dark)] transition-[transform,background-color] hover:bg-[var(--color-brand-yellow)] active:scale-[0.96]">Réserver mon diagnostic <ArrowUpRight className="h-5 w-5" /></Link>
+                    </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24 border-b border-[var(--color-brand-cream)]/10 pb-24">
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <h2 className="text-5xl md:text-6xl font-bold font-[family-name:var(--font-playfair)] leading-tight mb-8">
-                            Prêt(e) à redéfinir votre équilibre ?
-                        </h2>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <Link href="/contact" className="bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--color-brand-yellow)] transition-all shadow-[0_0_40px_rgba(251,208,95,0.3)] inline-flex justify-center items-center">
-                                Réserver mon diagnostic offert
-                            </Link>
-                        </div>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="bg-[var(--color-brand-cream)]/5 p-8 rounded-3xl border border-[var(--color-brand-cream)]/10 backdrop-blur-sm"
-                    >
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="p-3 bg-[var(--color-brand-green)]/20 rounded-xl text-[var(--color-brand-green)]">
-                                <FileText className="w-6 h-6" />
-                            </div>
-                            <h3 className="text-2xl font-bold font-[family-name:var(--font-seasons)]">Le Guide Gratuit</h3>
-                        </div>
-                        <p className="opacity-80 mb-6">
-                            "7 jours pour relancer son métabolisme sans frustration". Téléchargez mon guide de démarrage rapide et recevez mes conseils bi-mensuels.
-                        </p>
-                        <form className="flex flex-col sm:flex-row gap-3">
-                            <input
-                                type="email"
-                                placeholder="Votre email professionnel ou personnel"
-                                className="flex-1 bg-transparent border border-[var(--color-brand-cream)]/20 rounded-xl px-4 py-3 placeholder:text-[var(--color-brand-cream)]/40 focus:outline-none focus:border-[var(--color-brand-gold)] transition-colors"
-                            />
-                            <button className="bg-[var(--color-brand-green)] text-[var(--color-brand-cream)] px-6 py-3 rounded-xl font-bold hover:bg-[var(--color-brand-green)]/80 transition flex items-center justify-center gap-2 group">
-                                Obtenir <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </button>
+                    <div className="bg-white/7 p-6 sm:p-8">
+                        <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-[var(--color-brand-gold)]" /><h3 className="text-2xl font-bold">Le déclic dans votre boîte mail</h3></div>
+                        <p className="mt-4 max-w-lg leading-relaxed text-white/68">Recevez le guide « 7 jours pour relancer son métabolisme » et des conseils simples, deux fois par mois.</p>
+                        <form className="mt-6 flex flex-col gap-3 sm:flex-row">
+                            <label htmlFor="footer-email" className="sr-only">Votre adresse e-mail</label>
+                            <input id="footer-email" type="email" required placeholder="vous@exemple.fr" className="min-h-12 flex-1 bg-white px-4 text-[var(--color-brand-blue-dark)] placeholder:text-[var(--color-brand-blue-dark)]/55 focus:outline-none" />
+                            <button type="submit" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[var(--color-brand-green)] px-5 font-bold text-white transition-[transform,background-color] hover:bg-[var(--color-brand-green)]/85 active:scale-[0.96]">Recevoir le guide <ArrowRight className="h-4 w-4" /></button>
                         </form>
-                    </motion.div>
+                    </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row justify-between items-center opacity-60 text-sm">
-                    <div className="mb-4 md:mb-0">
-                        <span className="font-[family-name:var(--font-seasons)] font-bold text-xl tracking-tighter mr-2">
-                            AzulKitchen
-                        </span>
-                        &copy; 2026. Tous droits réservés.
-                    </div>
-                    <div className="flex space-x-6">
-                        <a href="#" className="hover:text-[var(--color-brand-gold)] transition">Mentions légales</a>
-                        <a href="#" className="hover:text-[var(--color-brand-gold)] transition">Politique de confidentialité</a>
-                        <a href="#" className="hover:text-[var(--color-brand-gold)] transition">CGV</a>
-                    </div>
+                <div className="flex flex-col gap-8 pt-9 text-sm text-white/58 md:flex-row md:items-center md:justify-between">
+                    <Link href="/" className="flex items-center gap-2 text-white"><img src="/logo.png" alt="" className="h-8 w-auto" /><span className="font-[family-name:var(--font-display)] text-lg font-bold">AzulKitchen</span></Link>
+                    <p>© 2026 AzulKitchen. Tous droits réservés.</p>
+                    <div className="flex flex-wrap gap-x-6 gap-y-3"><a href="#" className="min-h-10 content-center hover:text-white">Mentions légales</a><a href="#" className="min-h-10 content-center hover:text-white">Confidentialité</a><a href="#" className="min-h-10 content-center hover:text-white">CGV</a></div>
                 </div>
             </div>
         </footer>

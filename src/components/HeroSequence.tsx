@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 const FRAME_COUNT = 80;
 
@@ -20,18 +21,13 @@ export default function HeroSequence() {
     // Preload images
     useEffect(() => {
         const loadedImages: HTMLImageElement[] = [];
-        let loadedCount = 0;
-
         for (let i = 0; i < FRAME_COUNT; i++) {
             const img = new Image();
             img.src = getFramePath(i);
             img.onload = () => {
-                loadedCount++;
-                // Draw the first frame once loaded if it's the very first image
                 if (i === 0 && canvasRef.current) {
                     const ctx = canvasRef.current.getContext("2d");
                     if (ctx) {
-                        // Scale and draw
                         drawFrame(ctx, canvasRef.current, img);
                     }
                 }
@@ -46,8 +42,9 @@ export default function HeroSequence() {
         offset: ["start start", "end end"],
     });
 
-    // Map scroll progress to a frame index (0 to 79)
     const frameIndex = useTransform(scrollYProgress, [0, 1], [0, FRAME_COUNT - 1]);
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.22, 0.55], [1, 1, 0]);
+    const contentY = useTransform(scrollYProgress, [0, 0.55], [0, -60]);
 
     useMotionValueEvent(frameIndex, "change", (latest) => {
         if (!canvasRef.current || images.length === 0) return;
@@ -66,16 +63,15 @@ export default function HeroSequence() {
         canvas: HTMLCanvasElement,
         img: HTMLImageElement
     ) => {
-        // Set canvas internal dimensions to match display size for crispness,
-        // or just use the image's inherent 1080p size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(window.innerWidth * dpr);
+        canvas.height = Math.round(window.innerHeight * dpr);
 
         // Calculate aspect ratio to cover the screen (object-fit: cover equivalent)
         const scale = Math.max(
             canvas.width / img.width,
             canvas.height / img.height
-        ) * 1.2; // Zoom de 20% pour effacer le filigrane "Veo" tout à droite
+        ) * 1.2;
         const x = canvas.width / 2 - (img.width / 2) * scale;
         const y = canvas.height / 2 - (img.height / 2) * scale;
 
@@ -100,30 +96,41 @@ export default function HeroSequence() {
     }, [images, frameIndex]);
 
     return (
-        <div ref={containerRef} className="relative h-[300vh] w-full">
-            <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+        <section ref={containerRef} className="relative h-[300vh] w-full bg-[var(--color-brand-blue-dark)]" aria-label="Introduction animée">
+            <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
                 <canvas
                     ref={canvasRef}
-                    className="absolute inset-0 w-full h-full object-cover z-0"
+                    className="absolute inset-0 z-0 h-full w-full object-cover"
+                    aria-hidden="true"
                 />
-                {/* Overlay to dim the image slightly to ensure text legibility */}
-                <div className="absolute inset-0 bg-[var(--color-brand-blue)]/40 z-10 mix-blend-multiply pointer-events-none" />
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(5,29,78,.9)_0%,rgba(5,29,78,.62)_46%,rgba(5,29,78,.08)_80%),linear-gradient(0deg,rgba(5,29,78,.35)_0%,transparent_45%)]" />
 
-                {/* Hero Content - Absolute Centered */}
-                <div className="absolute z-20 flex flex-col items-center justify-center text-center px-4 md:px-8 w-full">
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-brand-cream)] font-[family-name:var(--font-playfair)] tracking-wide mb-6 uppercase text-balance drop-shadow-xl">
-                        L'Architecte Nutrition
-                    </h1>
-                    <p className="text-lg md:text-2xl text-[var(--color-brand-cream)] font-light max-w-2xl mb-8 drop-shadow-md">
-                        Rééquilibrage alimentaire & nutrition sportive pour femmes actives, seniors et athlètes.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 items-center">
-                        <Link href="/contact" className="px-8 py-4 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] font-bold rounded-full text-lg hover:bg-[var(--color-brand-yellow)] hover:scale-105 transition-all duration-300 shadow-xl">
-                            Retrouver l'énergie sans frustration
-                        </Link>
+                <motion.div style={{ opacity: contentOpacity, y: contentY }} className="relative z-20 mx-auto w-full max-w-7xl px-5 pt-20 sm:px-8 lg:px-10">
+                    <div className="max-w-3xl text-[var(--color-brand-cream)]">
+                        <p className="mb-5 inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm">
+                            Nutrition personnalisée · Cabinet & visio
+                        </p>
+                        <h1 className="max-w-[12ch] text-[clamp(3.4rem,7vw,6rem)] font-bold leading-[0.92]">
+                            L’énergie, sans la frustration.
+                        </h1>
+                        <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/86 sm:text-xl">
+                            Une stratégie nutritionnelle fondée sur la science, adaptée à votre rythme de vie et pensée pour durer.
+                        </p>
+                        <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                            <Link href="/contact" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[var(--color-brand-gold)] px-7 py-3.5 text-base font-bold text-[var(--color-brand-blue-dark)] transition-[transform,background-color] duration-300 ease-[var(--ease-out-expo)] hover:bg-[var(--color-brand-yellow)] active:scale-[0.96]">
+                                Réserver mon diagnostic <ArrowUpRight className="h-5 w-5" />
+                            </Link>
+                            <a href="#about" className="inline-flex min-h-11 items-center gap-2 px-2 font-semibold text-white/90 transition-colors hover:text-[var(--color-brand-gold)]">
+                                Découvrir l’approche
+                            </a>
+                        </div>
                     </div>
+                </motion.div>
+
+                <div className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-3 text-sm font-semibold text-white/75 md:flex">
+                    <span className="h-px w-10 bg-white/40" /> Faites défiler <ArrowDown className="h-4 w-4 animate-bounce" />
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

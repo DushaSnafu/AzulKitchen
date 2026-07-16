@@ -1,68 +1,34 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 
 const testimonials = [
-    {
-        name: "Sophie M.",
-        role: "Entrepreneure",
-        content: "Une révélation. L'approche d'Anti-Gravity déconstruit tous les mythes de la diététique classique. J'ai retrouvé de l'énergie pour mes journées de 12h sans jamais avoir l'impression d'être au régime.",
-        rating: 5
-    },
-    {
-        name: "Marc T.",
-        role: "Triathlète Amateur",
-        content: "Mes chronos ont baissé de 15% en 3 mois. La stratégie de nutrition sportive élaborée autour de mes entraînements a fait la différence. Indispensable.",
-        rating: 5
-    },
-    {
-        name: "Élise V.",
-        role: "Jeune Maman",
-        content: "Après des années d'effet yoyo, j'ai enfin trouvé un équilibre. Le plan est adapté à ma vie de famille, on mange les mêmes repas, ajustés pour mes besoins. Merci pour cette sérénité retrouvée.",
-        rating: 5
-    }
+    { name: "Sophie M.", role: "Entrepreneure", content: "J’ai retrouvé de l’énergie pour mes journées intenses sans jamais avoir l’impression d’être au régime." },
+    { name: "Marc T.", role: "Triathlète amateur", content: "La stratégie construite autour de mes entraînements a changé ma récupération et ma régularité." },
+    { name: "Élise V.", role: "Jeune maman", content: "Le plan s’adapte enfin à ma vie de famille. Même repas, bons ajustements, et beaucoup plus de sérénité." },
 ];
 
 export default function Testimonials() {
     return (
-        <section id="testimonials" className="py-24 bg-[#FAF7EF] text-[var(--color-brand-blue)]">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-4xl md:text-5xl font-bold font-[family-name:var(--font-playfair)] mb-6"
-                    >
-                        Leurs Résultats. Votre Futur.
-                    </motion.h2>
-                    <div className="w-24 h-1 bg-[var(--color-brand-gold)] mx-auto rounded-full" />
-                </div>
+        <section id="testimonials" className="scroll-mt-24 bg-[var(--color-brand-gold)] py-24 text-[var(--color-brand-blue-dark)] sm:py-32">
+            <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+                <div className="grid gap-12 lg:grid-cols-[0.55fr_1.45fr]">
+                    <div>
+                        <div className="flex gap-1" aria-label="5 étoiles sur 5">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-5 w-5 fill-current" />)}</div>
+                        <h2 className="mt-6 text-[clamp(2.8rem,5vw,5rem)] font-bold leading-[0.98]">Des progrès qui se vivent.</h2>
+                        <p className="mt-6 max-w-sm text-lg leading-relaxed text-[var(--color-brand-blue-dark)]/70">Des changements mesurables, mais surtout un quotidien plus simple.</p>
+                    </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {testimonials.map((testimonial, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
-                            className="bg-white pt-24 px-8 pb-8 rounded-t-[100px] rounded-b-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden"
-                        >
-                            <Quote className="absolute top-8 left-1/2 -translate-x-1/2 text-[var(--color-brand-blue)]/10 w-10 h-10" />
-                            <div className="flex gap-1 mb-6">
-                                {[...Array(testimonial.rating)].map((_, i) => (
-                                    <Star key={i} className="w-5 h-5 fill-[var(--color-brand-gold)] text-[var(--color-brand-gold)]" />
-                                ))}
-                            </div>
-                            <p className="text-lg italic opacity-90 mb-8 z-10 relative">"{testimonial.content}"</p>
-                            <div>
-                                <h4 className="font-bold text-xl font-[family-name:var(--font-seasons)]">{testimonial.name}</h4>
-                                <p className="text-sm opacity-60 uppercase tracking-widest mt-1">{testimonial.role}</p>
-                            </div>
-                        </motion.div>
-                    ))}
+                    <div className="grid gap-px bg-[var(--color-brand-blue-dark)]/18 md:grid-cols-2">
+                        {testimonials.map((testimonial, index) => (
+                            <motion.figure key={testimonial.name} initial={{ opacity: 1, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ delay: index * 0.08, duration: 0.5 }} className={`flex min-h-72 flex-col justify-between bg-[var(--color-brand-gold)] p-7 sm:p-9 ${index === 0 ? "md:col-span-2" : ""}`}>
+                                <Quote className="h-8 w-8 opacity-25" />
+                                <blockquote className={`${index === 0 ? "max-w-4xl text-3xl sm:text-4xl" : "text-2xl"} mt-8 font-[family-name:var(--font-display)] font-semibold leading-tight tracking-[-0.03em]`}>« {testimonial.content} »</blockquote>
+                                <figcaption className="mt-8 text-sm"><strong>{testimonial.name}</strong><span className="ml-2 opacity-62">{testimonial.role}</span></figcaption>
+                            </motion.figure>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

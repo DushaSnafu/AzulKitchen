@@ -1,103 +1,69 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+
+const links = [
+    { href: "/#about", label: "L’approche" },
+    { href: "/#services", label: "Accompagnements" },
+    { href: "/#testimonials", label: "Résultats" },
+    { href: "/blog", label: "Le journal" },
+];
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-    const [isBlueSection, setIsBlueSection] = useState(true);
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
-            let isBlue = true; // Default to blue for HeroSequence
-            const checkPoint = 100;
-            const aboutSection = document.getElementById('about');
-            
-            if (aboutSection) {
-                const rect = aboutSection.getBoundingClientRect();
-                // Check if we have scrolled down to the 'about' section
-                if (rect.top <= checkPoint + 50) {
-                    // We are in the lower sections, default to cream
-                    isBlue = false;
-                    const sections = document.querySelectorAll("section");
-                    sections.forEach(section => {
-                        const secRect = section.getBoundingClientRect();
-                        if (secRect.top <= checkPoint && secRect.bottom >= checkPoint) {
-                            if (section.className.includes('bg-[var(--color-brand-blue)]')) {
-                                isBlue = true;
-                            }
-                        }
-                    });
-                }
-            }
-            setIsBlueSection(isBlue);
-        };
+        const handleScroll = () => setScrolled(window.scrollY > 40);
         window.addEventListener("scroll", handleScroll, { passive: true });
-        handleScroll(); // init
+        handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const navBg = isBlueSection ? "bg-[var(--color-brand-blue)]" : "bg-[var(--color-brand-cream)]";
-    const textBase = isBlueSection ? "text-[var(--color-brand-cream)]" : "text-[var(--color-brand-blue)]";
-    const textHover = isBlueSection ? "hover:text-[var(--color-brand-gold)]" : "hover:text-[var(--color-brand-green)]";
-    const logoFilter = "drop-shadow-sm"; // Garder la couleur jaune/citronnée
-    const btnBg = isBlueSection 
-        ? "bg-[var(--color-brand-cream)] text-[var(--color-brand-blue)] hover:bg-[var(--color-brand-gold)]" 
-        : "bg-[var(--color-brand-blue)] text-[var(--color-brand-cream)] hover:bg-[var(--color-brand-green)]";
-    const borderColor = isBlueSection ? "border-[var(--color-brand-cream)]/20" : "border-transparent";
-
     return (
-        <nav className={`fixed w-full z-50 top-0 transition-colors duration-500 ${navBg} shadow-xl border-b ${borderColor} rounded-b-[2.5rem]`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-24">
-                    <Link href="/" className="flex-shrink-0 flex items-center cursor-pointer gap-3">
-                        <img src="/logo.png" alt="Logo AzulKitchen" className={`h-10 w-auto object-contain transition-all duration-500 ${logoFilter}`} />
-                        <span className={`font-[family-name:var(--font-seasons)] font-bold text-2xl tracking-tighter transition-colors duration-500 ${textBase}`}>
-                            AzulKitchen
-                        </span>
+        <nav aria-label="Navigation principale" className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+            <div className={`mx-auto max-w-7xl transition-[background-color,box-shadow] duration-300 ${scrolled || isOpen ? "bg-[var(--color-brand-blue-dark)] shadow-[0_8px_24px_rgba(2,18,55,.18)]" : "bg-[var(--color-brand-blue-dark)]/35 backdrop-blur-md"}`}>
+                <div className="flex h-18 items-center justify-between px-4 sm:px-6">
+                    <Link href="/" className="flex min-h-11 items-center gap-2.5 text-white">
+                        <img src="/logo.png" alt="" className="h-9 w-auto object-contain" />
+                        <span className="font-[family-name:var(--font-display)] text-xl font-bold tracking-[-0.03em]">AzulKitchen</span>
                     </Link>
 
-                    <div className="hidden md:ml-10 md:flex md:space-x-8 items-center">
-                        <a href="/#about" className={`font-medium transition-colors duration-500 ${textBase} ${textHover}`}>À Propos</a>
-                        <a href="/#services" className={`font-medium transition-colors duration-500 ${textBase} ${textHover}`}>Services</a>
-                        <a href="/#testimonials" className={`font-medium transition-colors duration-500 ${textBase} ${textHover}`}>Avis</a>
-                        <Link href="/blog" className={`font-medium transition-colors duration-500 ${textBase} ${textHover}`}>Articles</Link>
-                        <Link href="/contact" className={`px-6 py-2 rounded-full font-semibold transition-all duration-500 shadow-lg inline-block text-center ${btnBg}`}>
-                            Réserver mon diagnostic
+                    <div className="hidden items-center gap-7 lg:flex">
+                        {links.map((link) => (
+                            <Link key={link.href} href={link.href} className="inline-flex min-h-11 items-center text-[15px] font-semibold text-white/85 transition-colors hover:text-[var(--color-brand-gold)]">
+                                {link.label}
+                            </Link>
+                        ))}
+                        <Link href="/contact" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[var(--color-brand-gold)] px-5 py-2.5 font-bold text-[var(--color-brand-blue-dark)] transition-[transform,background-color] hover:bg-[var(--color-brand-yellow)] active:scale-[0.96]">
+                            Prendre rendez-vous <ArrowUpRight className="h-4 w-4" />
                         </Link>
                     </div>
 
-                    <div className="-mr-2 flex items-center md:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className={`inline-flex items-center justify-center p-2 rounded-md transition-colors duration-500 focus:outline-none ${textBase}`}
-                        >
-                            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                        </button>
-                    </div>
+                    <button type="button" onClick={() => setIsOpen((value) => !value)} aria-expanded={isOpen} aria-controls="mobile-menu" aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"} className="relative inline-flex h-11 w-11 items-center justify-center text-white lg:hidden">
+                        <Menu className={`absolute h-6 w-6 transition-[opacity,transform,filter] ${isOpen ? "scale-25 opacity-0 blur-[4px]" : "scale-100 opacity-100 blur-0"}`} />
+                        <X className={`absolute h-6 w-6 transition-[opacity,transform,filter] ${isOpen ? "scale-100 opacity-100 blur-0" : "scale-25 opacity-0 blur-[4px]"}`} />
+                    </button>
                 </div>
-            </div>
 
-            {/* Mobile Menu */}
-            {isOpen && (
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`md:hidden ${navBg} border-t ${borderColor} transition-colors duration-500 pb-4 shadow-lg`}
-                >
-                    <div className="px-4 pt-2 pb-3 space-y-2 sm:px-3 text-center">
-                        <a href="/#about" className={`block px-3 py-2 text-lg font-medium transition-colors duration-500 ${textBase}`}>À Propos</a>
-                        <a href="/#services" className={`block px-3 py-2 text-lg font-medium transition-colors duration-500 ${textBase}`}>Services</a>
-                        <a href="/#testimonials" className={`block px-3 py-2 text-lg font-medium transition-colors duration-500 ${textBase}`}>Avis</a>
-                        <Link href="/blog" className={`block px-3 py-2 text-lg font-medium transition-colors duration-500 ${textBase}`}>Articles</Link>
-                        <Link href="/contact" className={`mt-4 w-full block px-6 py-3 rounded-full font-semibold shadow-md transition-colors duration-500 inline-block text-center ${btnBg}`}>
-                            Réserver mon diagnostic
-                        </Link>
-                    </div>
-                </motion.div>
-            )}
+                <AnimatePresence initial={false}>
+                    {isOpen && (
+                        <motion.div id="mobile-menu" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }} className="border-t border-white/10 px-4 pb-5 pt-3 lg:hidden">
+                            {links.map((link) => (
+                                <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="flex min-h-12 items-center border-b border-white/10 text-lg font-semibold text-white">
+                                    {link.label}
+                                </Link>
+                            ))}
+                            <Link href="/contact" onClick={() => setIsOpen(false)} className="mt-5 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--color-brand-gold)] px-5 font-bold text-[var(--color-brand-blue-dark)] active:scale-[0.96]">
+                                Prendre rendez-vous <ArrowUpRight className="h-4 w-4" />
+                            </Link>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </nav>
     );
 }

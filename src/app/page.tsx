@@ -8,17 +8,12 @@ import FooterCTA from "@/components/sections/FooterCTA";
 
 export default function Home() {
   return (
-    <main className="bg-[var(--color-brand-cream)] min-h-screen font-sans selection:bg-[var(--color-brand-gold)] selection:text-[var(--color-brand-blue)]">
+    <main className="min-h-screen bg-[var(--color-brand-cream)] font-sans">
       <Navbar />
 
-      {/* 
-        The HeroSequence handles the frame-by-frame scroll of the Lemon. 
-        It naturally takes up a large scroll distance.
-      */}
       <HeroSequence />
 
-      {/* Subsequent Sections stack naturally below */}
-      <div className="relative z-10 bg-[var(--color-brand-cream)] rounded-t-[3rem] -mt-10 overflow-hidden shadow-2xl">
+      <div className="relative z-10 -mt-px overflow-hidden bg-[var(--color-brand-cream)]">
         <About />
         <Services />
         <Testimonials />
